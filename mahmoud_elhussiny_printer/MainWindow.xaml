@@ -19,7 +19,7 @@
             <TextBox x:Name="txtTo" Height="25" Margin="0,5,0,15"/>
 
             <TextBlock Text="عرض الورقة (بوصة):" FontWeight="Bold"/>
-            <TextBox x:Name="txtWidth" Text="3.15" Height="25" Margin="0,5,0,15"/>
+            <TextBox x:Name="txtWidth" Text="1.57" Height="25" Margin="0,5,0,15"/>
 
             <TextBlock Text="طول الورقة (بوصة):" FontWeight="Bold"/>
             <TextBox x:Name="txtHeight" Text="0.98" Height="25" Margin="0,5,0,15"/>

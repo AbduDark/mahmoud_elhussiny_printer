@@ -146,13 +146,8 @@ namespace mahmoud_elhussiny_printer
             }
             bool printBarcode = chkBarcode.IsChecked == true;
 
-            for (int i = from; i <= to; i += 4)
+            for (int i = from; i <= to; i++)
             {
-                int num1 = i;
-                int num2 = i + 1 <= to ? i + 1 : i;
-                int num3 = i + 2 <= to ? i + 2 : i;
-                int num4 = i + 3 <= to ? i + 3 : i;
-
                 StringBuilder sb = new StringBuilder();
                 sb.AppendLine($"SIZE {width},{height}");
                 sb.AppendLine("GAP 0.08,0");
@@ -160,23 +155,13 @@ namespace mahmoud_elhussiny_printer
                 sb.AppendLine("DIRECTION 1");
                 sb.AppendLine("REFERENCE 0,0");
 
-                // الصف الأول - رقم 1 (يسار أعلى)
-                sb.AppendLine($"TEXT {leftX},{topY},\"3\",0,{font},{font},\"{num1}\"");
-                // الصف الأول - رقم 2 (يمين أعلى)
-                sb.AppendLine($"TEXT {rightX},{topY},\"3\",0,{font},{font},\"{num2}\"");
+                // طباعة الرقم
+                sb.AppendLine($"TEXT {leftX},{topY},\"3\",0,{font},{font},\"{i}\"");
 
-                // الصف الثاني - رقم 3 (يسار أسفل)
-                sb.AppendLine($"TEXT {leftX},{bottomY},\"3\",0,{font},{font},\"{num3}\"");
-                // الصف الثاني - رقم 4 (يمين أسفل)
-                sb.AppendLine($"TEXT {rightX},{bottomY},\"3\",0,{font},{font},\"{num4}\"");
-
-                // الباركودات (اختياري)
+                // الباركود على يمين الرقم (اختياري)
                 if (printBarcode)
                 {
-                    sb.AppendLine($"BARCODE {leftX},{barcodeTopY},\"128\",{barcodeHeight},1,0,1,2,\"{num1}\"");
-                    sb.AppendLine($"BARCODE {rightX},{barcodeTopY},\"128\",{barcodeHeight},1,0,1,2,\"{num2}\"");
-                    sb.AppendLine($"BARCODE {leftX},{barcodeBottomY},\"128\",{barcodeHeight},1,0,1,2,\"{num3}\"");
-                    sb.AppendLine($"BARCODE {rightX},{barcodeBottomY},\"128\",{barcodeHeight},1,0,1,2,\"{num4}\"");
+                    sb.AppendLine($"BARCODE {rightX},{topY},\"128\",{barcodeHeight},1,0,1,1,\"{i}\"");
                 }
 
                 sb.AppendLine("PRINT 1,1");

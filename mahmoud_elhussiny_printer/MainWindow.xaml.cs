@@ -40,11 +40,16 @@ namespace mahmoud_elhussiny_printer
             if (!int.TryParse(txtBarcodeHeight.Text, out int barcodeHeight))
                 barcodeHeight = 60;
             if (cmbPrinters.SelectedItem == null)
-{
-    MessageBox.Show("من فضلك اختر الطابعة أولاً.");
-    return;
-}
-            string printerName = cmbPrinters.SelectedItem.ToString();
+            {
+                MessageBox.Show("من فضلك اختر الطابعة أولاً.");
+                return;
+            }
+            string? printerName = cmbPrinters.SelectedItem.ToString();
+            if (string.IsNullOrEmpty(printerName))
+            {
+                MessageBox.Show("من فضلك اختر الطابعة أولاً.");
+                return;
+            }
             bool printBarcode = chkBarcode.IsChecked == true;
 
             for (int i = from; i <= to; i += 2)
@@ -81,14 +86,15 @@ namespace mahmoud_elhussiny_printer
         }
     }
 
-    // كلاس الطباعة الخام
     public class DOCINFOA
     {
         [MarshalAs(UnmanagedType.LPStr)] public string pDocName = string.Empty;
         [MarshalAs(UnmanagedType.LPStr)] public string pOutputFile = string.Empty;
         [MarshalAs(UnmanagedType.LPStr)] public string pDataType = string.Empty;
-}
+    }
 
+    public static class RawPrinterHelper
+    {
         [DllImport("winspool.Drv", EntryPoint = "OpenPrinterA", SetLastError = true)]
         public static extern bool OpenPrinter(string pPrinterName, out IntPtr phPrinter, IntPtr pDefault);
 

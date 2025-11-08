@@ -1,0 +1,30 @@
+modules = ["dotnet-7.0", "dotnet-8.0"]
+[agent]
+expertMode = true
+
+[nix]
+channel = "stable-25_05"
+packages = ["wine64"]
+
+[workflows]
+runButton = "Project"
+
+[[workflows.workflow]]
+name = "Project"
+mode = "parallel"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "run-printer-app"
+
+[[workflows.workflow]]
+name = "run-printer-app"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "wine64 ./mahmoud_elhussiny_printer/bin/Release/net8.0-windows/mahmoud_elhussiny_printer.exe"
+
+[workflows.workflow.metadata]
+outputType = "vnc"

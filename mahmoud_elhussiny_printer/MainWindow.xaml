@@ -80,7 +80,7 @@
                             
                             <StackPanel Grid.Column="0">
                                 <TextBlock Text="عرض الورقة (بوصة):" FontWeight="SemiBold" Foreground="#34495E"/>
-                                <TextBox x:Name="txtWidth" Text="3.15" Height="35" Margin="0,5,0,0" FontSize="13" VerticalContentAlignment="Center"/>
+                                <TextBox x:Name="txtWidth" Text="1.57" Height="35" Margin="0,5,0,0" FontSize="13" VerticalContentAlignment="Center"/>
                             </StackPanel>
                             
                             <StackPanel Grid.Column="2">

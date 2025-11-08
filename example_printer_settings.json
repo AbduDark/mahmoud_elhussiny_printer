@@ -1,0 +1,13 @@
+{
+  "Width": 1.57,
+  "Height": 0.98,
+  "FontSize": 2,
+  "BarcodeHeight": 60,
+  "LeftX": 20,
+  "RightX": 200,
+  "TopY": 10,
+  "BottomY": 140,
+  "BarcodeTopY": 30,
+  "BarcodeBottomY": 160,
+  "PrintBarcode": false
+}

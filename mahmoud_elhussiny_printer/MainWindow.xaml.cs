@@ -1,18 +1,38 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Text.Json;
 using System.Windows;
 using System.Drawing;
 
 namespace mahmoud_elhussiny_printer
 {
+    public class AppSettings
+    {
+        public double Width { get; set; } = 1.57;
+        public double Height { get; set; } = 0.98;
+        public int FontSize { get; set; } = 2;
+        public int BarcodeHeight { get; set; } = 60;
+        public int LeftX { get; set; } = 20;
+        public int RightX { get; set; } = 200;
+        public int TopY { get; set; } = 10;
+        public int BottomY { get; set; } = 140;
+        public int BarcodeTopY { get; set; } = 30;
+        public int BarcodeBottomY { get; set; } = 160;
+        public bool PrintBarcode { get; set; } = false;
+    }
+
     public partial class MainWindow : Window
     {
+        private const string SettingsFile = "printer_settings.json";
+
         public MainWindow()
         {
             InitializeComponent();
             LoadPrinters();
+            LoadSettings();
         }
 
         private void LoadPrinters()
@@ -20,7 +40,67 @@ namespace mahmoud_elhussiny_printer
             foreach (string printer in System.Drawing.Printing.PrinterSettings.InstalledPrinters)
                 cmbPrinters.Items.Add(printer);
 
-            cmbPrinters.SelectedIndex = 0;
+            if (cmbPrinters.Items.Count > 0)
+                cmbPrinters.SelectedIndex = 0;
+        }
+
+        private void LoadSettings()
+        {
+            try
+            {
+                if (File.Exists(SettingsFile))
+                {
+                    string json = File.ReadAllText(SettingsFile);
+                    var settings = JsonSerializer.Deserialize<AppSettings>(json);
+                    
+                    if (settings != null)
+                    {
+                        txtWidth.Text = settings.Width.ToString();
+                        txtHeight.Text = settings.Height.ToString();
+                        txtFontSize.Text = settings.FontSize.ToString();
+                        txtBarcodeHeight.Text = settings.BarcodeHeight.ToString();
+                        txtLeftX.Text = settings.LeftX.ToString();
+                        txtRightX.Text = settings.RightX.ToString();
+                        txtTopY.Text = settings.TopY.ToString();
+                        txtBottomY.Text = settings.BottomY.ToString();
+                        txtBarcodeTopY.Text = settings.BarcodeTopY.ToString();
+                        txtBarcodeBottomY.Text = settings.BarcodeBottomY.ToString();
+                        chkBarcode.IsChecked = settings.PrintBarcode;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"خطأ في تحميل الإعدادات: {ex.Message}");
+            }
+        }
+
+        private void SaveSettings()
+        {
+            try
+            {
+                var settings = new AppSettings
+                {
+                    Width = double.TryParse(txtWidth.Text, out double w) ? w : 1.57,
+                    Height = double.TryParse(txtHeight.Text, out double h) ? h : 0.98,
+                    FontSize = int.TryParse(txtFontSize.Text, out int f) ? f : 2,
+                    BarcodeHeight = int.TryParse(txtBarcodeHeight.Text, out int bh) ? bh : 60,
+                    LeftX = int.TryParse(txtLeftX.Text, out int lx) ? lx : 20,
+                    RightX = int.TryParse(txtRightX.Text, out int rx) ? rx : 200,
+                    TopY = int.TryParse(txtTopY.Text, out int ty) ? ty : 10,
+                    BottomY = int.TryParse(txtBottomY.Text, out int by) ? by : 140,
+                    BarcodeTopY = int.TryParse(txtBarcodeTopY.Text, out int bty) ? bty : 30,
+                    BarcodeBottomY = int.TryParse(txtBarcodeBottomY.Text, out int bby) ? bby : 160,
+                    PrintBarcode = chkBarcode.IsChecked == true
+                };
+
+                string json = JsonSerializer.Serialize(settings, new JsonSerializerOptions { WriteIndented = true });
+                File.WriteAllText(SettingsFile, json);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"خطأ في حفظ الإعدادات: {ex.Message}");
+            }
         }
 
         private void btnPrint_Click(object sender, RoutedEventArgs e)
@@ -32,7 +112,7 @@ namespace mahmoud_elhussiny_printer
             }
 
             if (!double.TryParse(txtWidth.Text, out double width))
-                width = 3.15;
+                width = 1.57;
             if (!double.TryParse(txtHeight.Text, out double height))
                 height = 0.98;
             if (!int.TryParse(txtFontSize.Text, out int font))
@@ -104,6 +184,7 @@ namespace mahmoud_elhussiny_printer
                 RawPrinterHelper.SendStringToPrinter(printerName, sb.ToString());
             }
 
+            SaveSettings();
             MessageBox.Show("✅ تمت الطباعة بنجاح");
         }
     }

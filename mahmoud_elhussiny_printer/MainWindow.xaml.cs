@@ -32,7 +32,7 @@ namespace mahmoud_elhussiny_printer
             }
 
             if (!double.TryParse(txtWidth.Text, out double width))
-                width = 3.15;
+                width = 1.57;
             if (!double.TryParse(txtHeight.Text, out double height))
                 height = 0.98;
             if (!int.TryParse(txtFontSize.Text, out int font))

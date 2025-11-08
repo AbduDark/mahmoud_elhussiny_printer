@@ -66,37 +66,23 @@ namespace mahmoud_elhussiny_printer
                 sb.AppendLine("DIRECTION 1");
                 sb.AppendLine("REFERENCE 0,0");
 
-                // الملصق الأول - النص الأول (يمين)
+                // الصف الأول - رقم 1 (يسار أعلى)
                 sb.AppendLine($"TEXT 20,10,\"3\",0,{font},{font},\"{num1}\"");
-                // الملصق الأول - النص الثاني (شمال)
+                // الصف الأول - رقم 2 (يمين أعلى)
                 sb.AppendLine($"TEXT 200,10,\"3\",0,{font},{font},\"{num2}\"");
 
-                // الملصق الأول - الباركودات (اختياري)
+                // الصف الثاني - رقم 3 (يسار أسفل)
+                sb.AppendLine($"TEXT 20,60,\"3\",0,{font},{font},\"{num3}\"");
+                // الصف الثاني - رقم 4 (يمين أسفل)
+                sb.AppendLine($"TEXT 200,60,\"3\",0,{font},{font},\"{num4}\"");
+
+                // الباركودات (اختياري)
                 if (printBarcode)
                 {
-                    sb.AppendLine($"BARCODE 20,50,\"128\",{barcodeHeight},1,0,2,4,\"{num1}\"");
-                    sb.AppendLine($"BARCODE 200,50,\"128\",{barcodeHeight},1,0,2,4,\"{num2}\"");
-                }
-
-                sb.AppendLine("PRINT 1,1");
-
-                // الملصق الثاني
-                sb.AppendLine("CLS");
-                sb.AppendLine($"SIZE {width},{height}");
-                sb.AppendLine("GAP 0.08,0");
-                sb.AppendLine("DIRECTION 1");
-                sb.AppendLine("REFERENCE 0,0");
-
-                // الملصق الثاني - النص الأول (يمين)
-                sb.AppendLine($"TEXT 20,10,\"3\",0,{font},{font},\"{num3}\"");
-                // الملصق الثاني - النص الثاني (شمال)
-                sb.AppendLine($"TEXT 200,10,\"3\",0,{font},{font},\"{num4}\"");
-
-                // الملصق الثاني - الباركودات (اختياري)
-                if (printBarcode)
-                {
-                    sb.AppendLine($"BARCODE 20,50,\"128\",{barcodeHeight},1,0,2,4,\"{num3}\"");
-                    sb.AppendLine($"BARCODE 200,50,\"128\",{barcodeHeight},1,0,2,4,\"{num4}\"");
+                    sb.AppendLine($"BARCODE 20,30,\"128\",{barcodeHeight},1,0,1,2,\"{num1}\"");
+                    sb.AppendLine($"BARCODE 200,30,\"128\",{barcodeHeight},1,0,1,2,\"{num2}\"");
+                    sb.AppendLine($"BARCODE 20,80,\"128\",{barcodeHeight},1,0,1,2,\"{num3}\"");
+                    sb.AppendLine($"BARCODE 200,80,\"128\",{barcodeHeight},1,0,1,2,\"{num4}\"");
                 }
 
                 sb.AppendLine("PRINT 1,1");

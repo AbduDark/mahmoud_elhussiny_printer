@@ -71,18 +71,18 @@ namespace mahmoud_elhussiny_printer
                 // الصف الأول - رقم 2 (يمين أعلى)
                 sb.AppendLine($"TEXT 200,10,\"3\",0,{font},{font},\"{num2}\"");
 
-                // الصف الثاني - رقم 3 (يسار أسفل)
-                sb.AppendLine($"TEXT 20,60,\"3\",0,{font},{font},\"{num3}\"");
-                // الصف الثاني - رقم 4 (يمين أسفل)
-                sb.AppendLine($"TEXT 200,60,\"3\",0,{font},{font},\"{num4}\"");
+                // الصف الثاني - رقم 3 (يسار أسفل) - منزّل 10 مللي
+                sb.AppendLine($"TEXT 20,140,\"3\",0,{font},{font},\"{num3}\"");
+                // الصف الثاني - رقم 4 (يمين أسفل) - منزّل 10 مللي
+                sb.AppendLine($"TEXT 200,140,\"3\",0,{font},{font},\"{num4}\"");
 
                 // الباركودات (اختياري)
                 if (printBarcode)
                 {
                     sb.AppendLine($"BARCODE 20,30,\"128\",{barcodeHeight},1,0,1,2,\"{num1}\"");
                     sb.AppendLine($"BARCODE 200,30,\"128\",{barcodeHeight},1,0,1,2,\"{num2}\"");
-                    sb.AppendLine($"BARCODE 20,80,\"128\",{barcodeHeight},1,0,1,2,\"{num3}\"");
-                    sb.AppendLine($"BARCODE 200,80,\"128\",{barcodeHeight},1,0,1,2,\"{num4}\"");
+                    sb.AppendLine($"BARCODE 20,160,\"128\",{barcodeHeight},1,0,1,2,\"{num3}\"");
+                    sb.AppendLine($"BARCODE 200,160,\"128\",{barcodeHeight},1,0,1,2,\"{num4}\"");
                 }
 
                 sb.AppendLine("PRINT 1,1");

@@ -32,13 +32,27 @@ namespace mahmoud_elhussiny_printer
             }
 
             if (!double.TryParse(txtWidth.Text, out double width))
-                width = 1.57;
+                width = 3.15;
             if (!double.TryParse(txtHeight.Text, out double height))
                 height = 0.98;
             if (!int.TryParse(txtFontSize.Text, out int font))
                 font = 2;
             if (!int.TryParse(txtBarcodeHeight.Text, out int barcodeHeight))
                 barcodeHeight = 60;
+            
+            if (!int.TryParse(txtLeftX.Text, out int leftX))
+                leftX = 20;
+            if (!int.TryParse(txtRightX.Text, out int rightX))
+                rightX = 200;
+            if (!int.TryParse(txtTopY.Text, out int topY))
+                topY = 10;
+            if (!int.TryParse(txtBottomY.Text, out int bottomY))
+                bottomY = 140;
+            if (!int.TryParse(txtBarcodeTopY.Text, out int barcodeTopY))
+                barcodeTopY = 30;
+            if (!int.TryParse(txtBarcodeBottomY.Text, out int barcodeBottomY))
+                barcodeBottomY = 160;
+            
             if (cmbPrinters.SelectedItem == null)
             {
                 MessageBox.Show("من فضلك اختر الطابعة أولاً.");
@@ -67,22 +81,22 @@ namespace mahmoud_elhussiny_printer
                 sb.AppendLine("REFERENCE 0,0");
 
                 // الصف الأول - رقم 1 (يسار أعلى)
-                sb.AppendLine($"TEXT 20,10,\"3\",0,{font},{font},\"{num1}\"");
+                sb.AppendLine($"TEXT {leftX},{topY},\"3\",0,{font},{font},\"{num1}\"");
                 // الصف الأول - رقم 2 (يمين أعلى)
-                sb.AppendLine($"TEXT 200,10,\"3\",0,{font},{font},\"{num2}\"");
+                sb.AppendLine($"TEXT {rightX},{topY},\"3\",0,{font},{font},\"{num2}\"");
 
-                // الصف الثاني - رقم 3 (يسار أسفل) - منزّل 10 مللي
-                sb.AppendLine($"TEXT 20,140,\"3\",0,{font},{font},\"{num3}\"");
-                // الصف الثاني - رقم 4 (يمين أسفل) - منزّل 10 مللي
-                sb.AppendLine($"TEXT 200,140,\"3\",0,{font},{font},\"{num4}\"");
+                // الصف الثاني - رقم 3 (يسار أسفل)
+                sb.AppendLine($"TEXT {leftX},{bottomY},\"3\",0,{font},{font},\"{num3}\"");
+                // الصف الثاني - رقم 4 (يمين أسفل)
+                sb.AppendLine($"TEXT {rightX},{bottomY},\"3\",0,{font},{font},\"{num4}\"");
 
                 // الباركودات (اختياري)
                 if (printBarcode)
                 {
-                    sb.AppendLine($"BARCODE 20,30,\"128\",{barcodeHeight},1,0,1,2,\"{num1}\"");
-                    sb.AppendLine($"BARCODE 200,30,\"128\",{barcodeHeight},1,0,1,2,\"{num2}\"");
-                    sb.AppendLine($"BARCODE 20,160,\"128\",{barcodeHeight},1,0,1,2,\"{num3}\"");
-                    sb.AppendLine($"BARCODE 200,160,\"128\",{barcodeHeight},1,0,1,2,\"{num4}\"");
+                    sb.AppendLine($"BARCODE {leftX},{barcodeTopY},\"128\",{barcodeHeight},1,0,1,2,\"{num1}\"");
+                    sb.AppendLine($"BARCODE {rightX},{barcodeTopY},\"128\",{barcodeHeight},1,0,1,2,\"{num2}\"");
+                    sb.AppendLine($"BARCODE {leftX},{barcodeBottomY},\"128\",{barcodeHeight},1,0,1,2,\"{num3}\"");
+                    sb.AppendLine($"BARCODE {rightX},{barcodeBottomY},\"128\",{barcodeHeight},1,0,1,2,\"{num4}\"");
                 }
 
                 sb.AppendLine("PRINT 1,1");

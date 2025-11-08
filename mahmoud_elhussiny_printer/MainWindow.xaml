@@ -2,7 +2,7 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="برنامج الطباعة - XPrinter XP-370B"
-        Height="550" Width="550"
+        Height="700" Width="550"
         FlowDirection="RightToLeft"
         WindowStartupLocation="CenterScreen">
 
@@ -33,6 +33,26 @@
 
             <TextBlock Text="ارتفاع الباركود:" FontWeight="Bold"/>
             <TextBox x:Name="txtBarcodeHeight" Text="60" Height="25" Margin="0,5,0,15"/>
+
+            <TextBlock Text="━━━━━━ إعدادات المواضع ━━━━━━" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,10,0,10"/>
+
+            <TextBlock Text="موضع النص الأيسر (أفقي):" FontWeight="Bold"/>
+            <TextBox x:Name="txtLeftX" Text="20" Height="25" Margin="0,5,0,15"/>
+
+            <TextBlock Text="موضع النص الأيمن (أفقي):" FontWeight="Bold"/>
+            <TextBox x:Name="txtRightX" Text="200" Height="25" Margin="0,5,0,15"/>
+
+            <TextBlock Text="موضع الصف الأول (عمودي):" FontWeight="Bold"/>
+            <TextBox x:Name="txtTopY" Text="10" Height="25" Margin="0,5,0,15"/>
+
+            <TextBlock Text="موضع الصف الثاني (عمودي):" FontWeight="Bold"/>
+            <TextBox x:Name="txtBottomY" Text="140" Height="25" Margin="0,5,0,15"/>
+
+            <TextBlock Text="موضع الباركود للصف الأول (عمودي):" FontWeight="Bold"/>
+            <TextBox x:Name="txtBarcodeTopY" Text="30" Height="25" Margin="0,5,0,15"/>
+
+            <TextBlock Text="موضع الباركود للصف الثاني (عمودي):" FontWeight="Bold"/>
+            <TextBox x:Name="txtBarcodeBottomY" Text="160" Height="25" Margin="0,5,0,15"/>
 
             <Button x:Name="btnPrint" Content="طباعة" Height="45"
                     Background="#4CAF50" Foreground="White" FontWeight="Bold"

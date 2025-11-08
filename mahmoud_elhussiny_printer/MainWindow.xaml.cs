@@ -52,10 +52,12 @@ namespace mahmoud_elhussiny_printer
             }
             bool printBarcode = chkBarcode.IsChecked == true;
 
-            for (int i = from; i <= to; i += 2)
+            for (int i = from; i <= to; i += 4)
             {
                 int num1 = i;
                 int num2 = i + 1 <= to ? i + 1 : i;
+                int num3 = i + 2 <= to ? i + 2 : i;
+                int num4 = i + 3 <= to ? i + 3 : i;
 
                 StringBuilder sb = new StringBuilder();
                 sb.AppendLine($"SIZE {width},{height}");
@@ -64,17 +66,37 @@ namespace mahmoud_elhussiny_printer
                 sb.AppendLine("DIRECTION 1");
                 sb.AppendLine("REFERENCE 0,0");
 
-                // النص الأول (يمين)
+                // الملصق الأول - النص الأول (يمين)
                 sb.AppendLine($"TEXT 20,10,\"3\",0,{font},{font},\"{num1}\"");
-
-                // النص الثاني (شمال)
+                // الملصق الأول - النص الثاني (شمال)
                 sb.AppendLine($"TEXT 200,10,\"3\",0,{font},{font},\"{num2}\"");
 
-                // الباركودات (اختياري)
+                // الملصق الأول - الباركودات (اختياري)
                 if (printBarcode)
                 {
                     sb.AppendLine($"BARCODE 20,50,\"128\",{barcodeHeight},1,0,2,4,\"{num1}\"");
                     sb.AppendLine($"BARCODE 200,50,\"128\",{barcodeHeight},1,0,2,4,\"{num2}\"");
+                }
+
+                sb.AppendLine("PRINT 1,1");
+
+                // الملصق الثاني
+                sb.AppendLine("CLS");
+                sb.AppendLine($"SIZE {width},{height}");
+                sb.AppendLine("GAP 0.08,0");
+                sb.AppendLine("DIRECTION 1");
+                sb.AppendLine("REFERENCE 0,0");
+
+                // الملصق الثاني - النص الأول (يمين)
+                sb.AppendLine($"TEXT 20,10,\"3\",0,{font},{font},\"{num3}\"");
+                // الملصق الثاني - النص الثاني (شمال)
+                sb.AppendLine($"TEXT 200,10,\"3\",0,{font},{font},\"{num4}\"");
+
+                // الملصق الثاني - الباركودات (اختياري)
+                if (printBarcode)
+                {
+                    sb.AppendLine($"BARCODE 20,50,\"128\",{barcodeHeight},1,0,2,4,\"{num3}\"");
+                    sb.AppendLine($"BARCODE 200,50,\"128\",{barcodeHeight},1,0,2,4,\"{num4}\"");
                 }
 
                 sb.AppendLine("PRINT 1,1");

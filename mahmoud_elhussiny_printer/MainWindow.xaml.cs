@@ -146,8 +146,11 @@ namespace mahmoud_elhussiny_printer
             }
             bool printBarcode = chkBarcode.IsChecked == true;
 
-            for (int i = from; i <= to; i++)
+            for (int i = from; i <= to; i += 2)
             {
+                int num1 = i;
+                int num2 = i + 1 <= to ? i + 1 : i;
+
                 StringBuilder sb = new StringBuilder();
                 sb.AppendLine($"SIZE {width},{height}");
                 sb.AppendLine("GAP 0.08,0");
@@ -155,13 +158,17 @@ namespace mahmoud_elhussiny_printer
                 sb.AppendLine("DIRECTION 1");
                 sb.AppendLine("REFERENCE 0,0");
 
-                // طباعة الرقم
-                sb.AppendLine($"TEXT {leftX},{topY},\"3\",0,{font},{font},\"{i}\"");
+                // الرقم الأول في الأعلى
+                sb.AppendLine($"TEXT {leftX},{topY},\"3\",0,{font},{font},\"{num1}\"");
+                
+                // الرقم الثاني في الأسفل
+                sb.AppendLine($"TEXT {leftX},{bottomY},\"3\",0,{font},{font},\"{num2}\"");
 
-                // الباركود على يمين الرقم (اختياري)
+                // الباركودات على يمين الأرقام (اختياري)
                 if (printBarcode)
                 {
-                    sb.AppendLine($"BARCODE {rightX},{topY},\"128\",{barcodeHeight},1,0,1,1,\"{i}\"");
+                    sb.AppendLine($"BARCODE {rightX},{barcodeTopY},\"128\",{barcodeHeight},1,0,1,1,\"{num1}\"");
+                    sb.AppendLine($"BARCODE {rightX},{barcodeBottomY},\"128\",{barcodeHeight},1,0,1,1,\"{num2}\"");
                 }
 
                 sb.AppendLine("PRINT 1,1");
